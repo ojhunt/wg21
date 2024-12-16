@@ -266,6 +266,14 @@ an expression `e` is defined as follows:
   - [2.2]{.pnum} If `e` is a subscripting operation (7.6.1.1) with an array operand,
 the set contains the potential results of that operand.
 
+[4]{.pnum old=3} Changing a paragraph number
+
+[3.1]{.pnum old=3} Changing a paragraph number to a sub paragraph
+
+[3]{.pnum old=3.1} Changing a sub paragraph number to a paragraph
+
+[3.2]{.pnum old=3.1} Changing a sub paragraph number
+
 ## Wording Changes
 
 Large changes are `::: add` for additions, `::: rm` for removals.

@@ -289,6 +289,9 @@ def divspan(elem, doc):
     """
 
     def _color(html_color):
+        _color_elem(elem, html_color)
+
+    def _color_elem(elem, html_color):
         wrap_elem(
             pf.RawInline(f'{{\\color[HTML]{{{html_color}}}', 'latex'),
             elem,
@@ -302,6 +305,9 @@ def divspan(elem, doc):
             pf.Span(pf.Str(' — '), pf.Emph(pf.Str(f'end {name.lower()}')), pf.Str(' ]')))
 
     def _diff(color, latex_tag, html_tag):
+        _diff_elem(elem, color, latex_tag, html_tag)
+
+    def _diff_elem(elem, color, latex_tag, html_tag):
         if isinstance(elem, pf.Span):
             def protect_code(elem, doc):
                 if isinstance(elem, pf.Code):
@@ -317,10 +323,38 @@ def divspan(elem, doc):
                 pf.RawInline(f'<{html_tag}>', 'html'),
                 elem,
                 pf.RawInline(f'</{html_tag}>', 'html'))
-        _color(doc.get_metadata(color))
+        _color_elem(elem, doc.get_metadata(color))
 
     def pnum():
         num = pf.stringify(elem)
+        if 'old' in elem.attributes:
+            pnum_elem = None
+            old_num = elem.attributes['old']
+            old_num_needs_parens = '.' in old_num
+            new_num_needs_parens = '.' in num
+            coalesce_parens = ('.' in num) == ('.' in old_num)
+            if coalesce_parens:
+                old_elem = pf.Span(pf.Str(old_num))
+                new_elem = pf.Span(pf.Str(num))
+                _diff_elem(old_elem, 'rmcolor', 'sout', 'del')
+                _diff_elem(new_elem, 'addcolor', 'uline', 'ins')
+                pnum_elem = pf.Span(old_elem, new_elem)
+                if old_num_needs_parens:
+                    wrap_elem(pf.Str("("), pnum_elem, pf.Str(")"))
+            else:
+                if old_num_needs_parens:
+                    old_num = f'({old_num})'
+                old_elem = pf.Span(pf.Str(old_num))
+                if new_num_needs_parens:
+                    num = f'({num})'
+                new_elem = pf.Span(pf.Str(num))
+                _diff_elem(old_elem, 'rmcolor', 'sout', 'del')
+                _diff_elem(new_elem, 'addcolor', 'uline', 'ins')
+                pnum_elem = pf.Span(old_elem, new_elem)
+            wrap_elem(pf.RawInline('\\pnum{', 'latex'), pnum_elem, pf.RawInline('}', 'latex'))
+            wrap_elem(pf.RawInline(f'<a class="marginalized">', 'html'), pnum_elem, pf.RawInline(f'</a>', 'html'))
+            return pf.Span(pnum_elem,
+                    classes=['marginalizedparent'])
 
         if '.' in num:
             num = f'({num})'
