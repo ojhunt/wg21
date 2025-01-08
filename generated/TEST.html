@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="mpark/wg21" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="dcterms.date" content="2025-01-06" />
+  <meta name="dcterms.date" content="2025-01-08" />
   <title>Test document for mpark/wg21</title>
   <style>
       code{white-space: pre-wrap;}
@@ -81,6 +81,19 @@
       code.diff {color: #898887}
       code.diff span.va {color: #006e28}
       code.diff span.st {color: #bf0303}
+
+      .marginalized[data-old]::before {
+        text-decoration-line: line-through;
+        color: #bf0303;
+        content: attr(data-old);
+      }
+      .marginalized[data-old] {
+        color: #006e28;
+      }
+      .add .marginalized {
+        color: #006e28;
+      }
+
   </style>
   <style type="text/css">
 body {
@@ -434,7 +447,7 @@ various features of the framework</h3>
   </tr>
   <tr>
     <td>Date:</td>
-    <td>2025-01-06</td>
+    <td>2025-01-08</td>
   </tr>
   <tr>
     <td style="vertical-align:top">Project:</td>
@@ -776,6 +789,17 @@ unevaluated operand (7.2) or a subexpression thereof. The set of
 (7.6.1.1) with an array operand, the set contains the potential results
 of that operand.</p></li>
 </ul>
+<p><span class="marginalizedparent"><a class="marginalized" data-old>3</a></span>
+We can indicate new paragraph numbers via an empty
+<code class="sourceCode cpp">old</code> attribute</p>
+<p><span class="marginalizedparent"><a class="marginalized" data-old="3">4</a></span>
+And old paragraph numbers</p>
+<p><span class="marginalizedparent"><a class="marginalized" data-old="4">(4.1)</a></span>
+And changing the nesting</p>
+<p><span class="marginalizedparent"><a class="marginalized" data-old="(5.1)">5</a></span>
+And vice versa</p>
+<p><span class="marginalizedparent"><a class="marginalized" data-old="(5.1)">(6.1)</a></span>
+And both</p>
 <h2 data-number="5.2" id="wording-changes"><span class="header-section-number">5.2</span> Wording Changes<a href="#wording-changes" class="self-link"></a></h2>
 <p>Large changes are
 <code class="sourceCode cpp"><span class="op">:::</span> add</code> for
@@ -878,7 +902,7 @@ is thrown</ins></span>.</td>
 </blockquote>
 <h1 data-number="6" id="stable-names"><span class="header-section-number">6</span> Stable Names<a href="#stable-names" class="self-link"></a></h1>
 <p>Stable names are written as <code class="sourceCode cpp"><span class="op">[</span>basic<span class="op">.</span>life<span class="op">]{.</span>sref<span class="op">}</span></code>,
-and renders as <span>6.7.4
+and renders as <span>6.7.3
 <a href="https://wg21.link/basic.life">[basic.life]</a></span>. You can
 also add a class
 <code class="sourceCode cpp"><span class="op">-</span></code> or
@@ -889,7 +913,7 @@ underlying database.</p>
 <p>Examples:</p>
 <ul>
 <li><code class="sourceCode cpp"><span class="op">[</span>basic<span class="op">.</span>life<span class="op">]{.</span>sref<span class="op">}</span></code>
-→ <span>6.7.4
+→ <span>6.7.3
 <a href="https://wg21.link/basic.life">[basic.life]</a></span></li>
 <li><code class="sourceCode cpp"><span class="op">[</span>basic<span class="op">.</span>life<span class="op">]{-</span> <span class="op">.</span>sref<span class="op">}</span></code>
 → <span><a href="https://wg21.link/basic.life">[basic.life]</a></span></li>
